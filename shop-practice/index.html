@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <title>Shop manager</title>
+    
+</head>
+<body>
+    <header class="bg-red-50 py-[15px] px-[50px] border mx-40 my-7 rounded-xl flex justify-between " >
+        <div>
+        <h1 class="font-mono text-[30px] text-blue-500">
+            Shop manger
+         </h1>
+        <p>Découvrez notre catalogue de produits</p> 
+        </div>
+        <nav>
+           <ul class="flex gap-6">
+            <li><a href="">Home</a></li>
+            <li><a href="">products</a></li>
+            <li><a href="">contact </a></li>
+           </ul>
+        </nav>
+    </header>
+    <main  class="bg-red-50 py-[15px] px-[50px] border mx-40 my-7 rounded-xl">
+        <section class="flex mb-6">
+            <input type="search" name="serch" id="serch" placeholder="Search products" class=" border border-black w-full rounded-lg py-3 px-2">
+        </section>
+        <section class="flex gap-10  mb-6">
+            <select name="categorie" id="category" class="w-1/4 border border-black rounded-lg py-2 px-2">
+                <option value="">choisir category</option>
+                <option value="">Books</option>
+                <option value="">Outdoor</option>
+                <option value="">Kitchen</option>
+                <option value="">Electronics</option>
+            </select>
+            <div class="flex gap-5">
+            <input type="number" name="min price" id="min-price" placeholder="min price" class="w-1/2 border border-black rounded-lg py-2 px-2">
+            <input type="number" name="max price" id="max-price" placeholder="max price" class="w-1/2 border border-black rounded-lg py-2 px-2">
+            </div>
+        </section>
+        <section id="product-container" class=" flex gap-10 font-mono w-full  ">
+             <div id="premier-produit" class="border   rounded-xl ">
+                <div class="w-full">
+                    <img src="jjj.png" alt="" >
+                </div>
+                <div class="pl-10 pr-10 pb-3 pt-3">
+                <h3 class=" text-[15px] font-bold ">premier produit </h3>
+                <p> description</p>
+                <p> <span class="text-gray-600"> price :</span>$400</p>
+                <p> <span class="text-gray-600"> stock :</span>Quantité</p>
+                <p>Catégorie</p>
+                <button class="border rounded-lg w-full bg-blue-200">Add Product</button>
+            </div>
+             </div>
+            <div id="deuxième-produit" class="border   rounded-xl ">
+                <div class="w-full">
+                    <img src="jjj.png" alt="">
+                </div>
+                <div class="pl-10 pr-10 pb-3 pt-3">
+                <h3 class=" text-[15px] font-bold ">deuxième produit </h3>
+                <p> description</p>
+                <p> <span class="text-gray-600">price :</span>$400</p>
+                <p> <span class="text-gray-600"> stock :</span>Quantité</p>
+                <p>Catégorie</p>
+                <button class="border rounded-lg w-full bg-blue-200">Add Product</button>
+            </div>
+             </div>
+             <div id="troisième-produit" class="border   rounded-xl ">
+                <div class="w-full">
+                    <img src="jjj.png" alt="" class="w-full">
+                </div>
+                <div class="pl-10 pr-10 pb-3 pt-3">
+                <h3 class=" text-[15px] font-bold ">troisième produit </h3>
+                <p> description</p>
+                <p> <span class="text-gray-600">price :</span>$400</p>
+                <p> <span class="text-gray-600"> stock :</span>Quantité</p>
+                <p>Catégorie</p>
+               <button class="border rounded-lg w-full bg-blue-200">Add Product</button>
+            </div>
+             </div>
+        </section>
+    </main>
+    <footer class="bg-red-50 py-[15px] px-[50px] border mx-40 my-7 rounded-xl flex justify-between " >
+        <div>
+        <h2 class="font-mono text-[30px] text-blue-500">
+            Shop manger
+         </h2>
+        </div>
+        <nav>
+           <ul class="flex gap-6">
+            <li><a href=""><i class="fa-brands fa-instagram"></i></a></li>
+            <li><a href=""><i class="fa-brands fa-whatsapp"></i></a></li>
+            <li><a href=""><i class="fa-brands fa-discord"></i></a></li>
+             <li><a href=""><i class="fa-brands fa-facebook"></i></a></li>
+           </ul>
+        </nav>
+    </footer>
+    
+</body>
+</html>
