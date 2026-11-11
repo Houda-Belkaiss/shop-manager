@@ -15,21 +15,29 @@ async function getData() {
  async function data() {
     const products = await getData();
     console.log(products);
+    if (!products) {
+        productContainer.innerHTML= "Impossible de charger les produits. Veuillez réessayer";
+        return;
+        
+    }
+   
      afficheData(products);
+      // serchProducts(products);
+
  }
   data();
-  
 
-     function afficheData(products) {
-       
+   function afficheData(products) {
+       productContainer.innerHTML = "";
          if (products.length == 0) {
                 productContainer.innerHTML = `<h3 class=" text-[15px] font-bold "> Aucun produit disponible pour le moment.</h3>`
                 return;
             }
+
              products.forEach(element => {
           
-            console.log(element);
-            console.log(element.image);
+           // console.log(element);
+           //' console.log(element.image);
             
             productContainer.innerHTML += `<div id=${element.id} class="border  rounded-xl w-1/4">
                 <div class="w-full">
@@ -49,3 +57,36 @@ async function getData() {
         });
     }
    
+
+   
+
+
+
+   async function serchProducts() {
+     const serchInput = document.getElementById('serch');
+     serchInput.addEventListener('input',async function (event) {
+         let serchValue = serchInput.value;
+            console.log(serchValue);
+           
+           try {
+            let url = await fetch(`http://localhost:3000/api/products?search=${serchValue}`);
+            console.log(url.status);
+            let productSearch = await url.json();
+            if (productSearch.length == 0) {
+                 productContainer.innerHTML = `<p>Aucun résultat trouvé.</p>`;
+                 return;
+            }
+
+            afficheData(productSearch);
+           } catch (error) {
+            console.log(error.message);
+            productContainer.innerHTML = `<h3>Aucun résultat.</h3>`
+            
+           
+         } 
+          
+       })
+        
+    }
+
+ serchProducts();
