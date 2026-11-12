@@ -30,15 +30,16 @@
         <section class="flex gap-10  mb-6">
             <select name="categorie" id="category" class="w-1/4 border border-black rounded-lg py-2 px-2">
                 <option value="">choisir category</option>
-                <option value="">Books</option>
-                <option value="">Outdoor</option>
-                <option value="">Kitchen</option>
+                <!-- <option value="">Books</option>
                 <option value="">Electronics</option>
+                <option value="">Kitchen</option>
+                <option value="">Outdoor</option> -->
             </select>
-            <div class="flex gap-5">
+            <div class="flex gap-5 w-full items-center">
            
-            <input type="number" name="max price" id="min-price" placeholder="max price" class="w-1/2 border border-black rounded-lg py-2 px-2">
-             <input type="number" name="min price" id="max-price" placeholder="min price" class="w-1/2 border border-black rounded-lg py-2 px-2">
+            <input type="number" name="max price" id="max-price" placeholder="max price" class="w-1/2 border border-black rounded-lg py-2 px-2">
+             <label><input type="checkbox" id="in-stock" class="w-[60px] ">in Stock</label>
+
             </div>
         </section>
         <section id="product-container" class=" flex gap-10 font-mono w-full flex-wrap ">
