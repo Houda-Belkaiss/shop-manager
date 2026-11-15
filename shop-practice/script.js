@@ -1,15 +1,17 @@
 const productContainer = document.getElementById("product-container");
 const categerySelect = document.getElementById("category");
 const serchInput = document.getElementById("serch");
-const maxPriceInput = document.getElementById('max-price');
- const stock =document.getElementById('in-stock');
+const maxPriceInput = document.getElementById("max-price");
+const stock = document.getElementById("in-stock");
+const resetfilters = document.getElementById('reset-filters');
 const API_BASE = "http://localhost:3000/api";
 
 data();
 createCtegery();
 inStock();
+//filtredProduct();
 async function getData() {
-  const response = await fetch(API_BASE +'/products');
+  const response = await fetch(API_BASE + "/products");
 
   if (!response.ok) {
     const problem = await response.json();
@@ -29,7 +31,6 @@ async function data() {
     return;
   }
   afficheData(products);
-  
 }
 
 function afficheData(products) {
@@ -59,121 +60,134 @@ function afficheData(products) {
   });
 }
 
-
-
-
 async function serchProducts(serch) {
-    try {
-      let url = await fetch(`${API_BASE}/products?search=${serch}`);
-      console.log(url.status);
-      let productSearch = await url.json();
-      
-      if (productSearch.length == 0) {
-        productContainer.innerHTML = `<p>Aucun résultat trouvé.</p>`;
-        return;
-      }
+  try {
+    let url = await fetch(`${API_BASE}/products?search=${serch}`);
+    console.log(url.status);
+    let productSearch = await url.json();
 
-      afficheData(productSearch);
-    } catch (error) {
-      console.log(error.message);
-      productContainer.innerHTML = `<h3>Aucun résultat.</h3>`;
+    if (productSearch.length == 0) {
+      productContainer.innerHTML = `<p>Aucun résultat trouvé.</p>`;
+      return;
     }
-  };
 
-
-
-
-async function getCategory() {
-    try {
-        const response = await fetch(API_BASE +"/categories");
-       const category = await response.json();
-        return category;
-    } catch (error) {
-        console.log(error.message);
-    }
-  
+    afficheData(productSearch);
+  } catch (error) {
+    console.log(error.message);
+    productContainer.innerHTML = `<h3>Aucun résultat.</h3>`;
+  }
 }
 
+async function getCategory() {
+  try {
+    const response = await fetch(API_BASE + "/categories");
+    const category = await response.json();
+    return category;
+  } catch (error) {
+    console.log(error.message);
 
+  }
+}
 
 async function createCtegery() {
-    try {
-        const category = await getCategory();
-   // console.log(category);
+  try {
+    const category = await getCategory();
+    // console.log(category);
     category.forEach((element) => {
-    const option = document.createElement("option");
-    option.value = `${element.id}`;
-    option.textContent = `${element.name}`;
-    categerySelect.appendChild(option);
-  });
-    } catch (error) {
-        console.log(error.message);
-         categerySelect.innerHTML = `<option>Aucun category.</option>`;
-        
-    }
-  
+      const option = document.createElement("option");
+      option.value = `${element.id}`;
+      option.textContent = `${element.name}`;
+      categerySelect.appendChild(option);
+    });
+  } catch (error) {
+    console.log(error.message);
+    categerySelect.innerHTML = `<option>Aucun category.</option>`;
+  }
 }
 
 async function filterProductsParCategory(category) {
-    
-         if (category == 'choisir category') {
-            return ;
-         }
-      
-        let url = await fetch( `${API_BASE}/products?categoryId=${category}`);
-        console.log(url.status);
-        
-        let filteredProduct =await url.json();
-        afficheData(filteredProduct);
+  try {
+  if (category.value == "") {
+    let url =  await fetch(`${API_BASE}/products`);
+    let Product = await url.json();
+    afficheData(Product);
 
-  };
+  }
+    let url = await fetch(`${API_BASE}/products?categoryId=${category}`);
+    console.log(url.status);
+    let filteredProduct = await url.json();
+    afficheData(filteredProduct);
+  } catch (error) {
+    console.log(error.message);
+  }
+}
 
- async function filterDataMaxPrice(maxPrice){
-    
-        let url = await fetch(`${API_BASE}/products?maxPrice=${maxPrice}`);
-        console.log(url.status);
-        let filtredProduct = await url.json();
-        console.log(filtredProduct);
-        afficheData(filtredProduct);
-        
-    }
+async function filterDataMaxPrice(maxPrice) {
+  let url = await fetch(`${API_BASE}/products?maxPrice=${maxPrice}`);
+  console.log(url.status);
+  let filtredProduct = await url.json();
+  console.log(filtredProduct);
+  afficheData(filtredProduct);
+}
 
 async function inStock() {
-stock.addEventListener('change', async function (event) {
-   console.log(event.target.checked);
-       let chek = event.target.checked;
-    if (chek == false) {
-    return;
-     }
-      
-        let url = await fetch(`${API_BASE}/products?inStock=${chek}`);
-      console.log(url.status);
-       let productInStock = await url.json();
-      afficheData(productInStock);
-       
-})
-
-    }
- 
-
-
- serchInput.addEventListener("input", function () {
-  serchProducts(serch.value);
- 
- })
+  try {
+     stock.addEventListener("change", async function (event) {
+    console.log(event.target.checked);
     
- categerySelect.addEventListener("change", function () {
-    filterProductsParCategory(category.value);
-     })
+  //   let url = await fetch(`${API_BASE}/products?inStock=${chek}`);
+  //   console.log(url.status);
+  //   let productInStock = await url.json();
+  //  afficheData(productInStock);
+   filtredProduct()
+  });
+  } catch (error) {
+    console.log(error.message);
+    
+  }
+ 
+}
 
- maxPriceInput.addEventListener('input', function () {
-   filterDataMaxPrice(maxPriceInput.value);
-     })
+serchInput.addEventListener("input", function () {
+  serchProducts(serchInput.value);
+});
 
+categerySelect.addEventListener("change", function () {
+ // filterProductsParCategory(categerySelect.value);
+  filtredProduct();
+});
 
+maxPriceInput.addEventListener("input", function () {
+ // filterDataMaxPrice(maxPriceInput.value);
+  filtredProduct();
+});
+async function filtredProduct() {
+  try {
      const params = new URLSearchParams();
-     params.appendChild("categoryId")
-     params.appendChild("search")
-     params.appendChild("maxPrice")
-     params.appendChild("inStock")
-      
+     if (categerySelect.value !== "") {
+      params.append("categoryId", categerySelect.value);
+     }
+     if (maxPriceInput.value !== "") {
+       params.append("maxPrice", maxPriceInput.value);
+     }
+     if (stock.checked == true) {
+      params.append("inStock", true);
+     }
+    
+    const response = await fetch(`${API_BASE}/products?${params}`)
+    const products = await response.json();
+    afficheData(products);
+}
+   catch (error) {
+    console.log(error.message);
+    productContainer.innerHTML = `<h3>Aucun products.</h3>`
+
+  }
+ }
+
+ resetfilters.addEventListener('click', function(){
+   categerySelect.value = "";
+   maxPriceInput.value = "";
+   stock.checked = false;
+   data();
+ })
