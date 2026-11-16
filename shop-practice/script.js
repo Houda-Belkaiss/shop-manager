@@ -53,9 +53,12 @@ function afficheData(products) {
                 <p> ${element.description}</p>
                 <p> <span class="text-gray-600"> price :  </span> ${element.price} $</p>
                 <p> <span class="text-gray-600"> stock :  </span>${element.stock} </p>
-                <p>${element.categoryName}</p>
+                <p > <span class="text-gray-600 text-[15px]"> Category :  </span>${element.categoryName}</p>
+                <div class="w-full flex gap-4">
+                <input type="number" name="stock" id="quantite"  class ="w-1/3 border border-black rounded-lg py-2 px-2">
                 <button class="border rounded-lg w-full bg-blue-200">Add Product</button>
             </div>
+             </div>
              </div>`;
   });
 }
@@ -134,7 +137,6 @@ async function inStock() {
   try {
      stock.addEventListener("change", async function (event) {
     console.log(event.target.checked);
-    
   //   let url = await fetch(`${API_BASE}/products?inStock=${chek}`);
   //   console.log(url.status);
   //   let productInStock = await url.json();
@@ -191,3 +193,8 @@ async function filtredProduct() {
    stock.checked = false;
    data();
  })
+
+
+
+
+ 
