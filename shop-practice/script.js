@@ -4,12 +4,16 @@ const serchInput = document.getElementById("serch");
 const maxPriceInput = document.getElementById("max-price");
 const stock = document.getElementById("in-stock");
 const resetfilters = document.getElementById('reset-filters');
+
+
+
 const API_BASE = "http://localhost:3000/api";
 
 data();
 createCtegery();
 inStock();
 //filtredProduct();
+addProducts();
 async function getData() {
   const response = await fetch(API_BASE + "/products");
 
@@ -45,8 +49,8 @@ function afficheData(products) {
     //' console.log(element.image);
 
     productContainer.innerHTML += `<div id=${element.id} class="border  rounded-xl w-1/4">
-                <div class="w-full">
-                    <img src= http://localhost:3000${element.image}>
+                <div class="w-full ">
+                    <img src= http://localhost:3000${element.image} class="rounded-xl">
                 </div>
                 <div class="pl-10 pr-10 pb-3 pt-3">
                 <h3 class=" text-[20px] font-bold ">${element.name} </h3>
@@ -56,7 +60,7 @@ function afficheData(products) {
                 <p > <span class="text-gray-600 text-[15px]"> Category :  </span>${element.categoryName}</p>
                 <div class="w-full flex gap-4">
                 <input type="number" name="stock" id="quantite"  class ="w-1/3 border border-black rounded-lg py-2 px-2">
-                <button class="border rounded-lg w-full bg-blue-200">Add Product</button>
+                <button id="${element.id}" class=" btn border rounded-lg w-full bg-blue-200">Add Product</button>
             </div>
              </div>
              </div>`;
@@ -195,6 +199,70 @@ async function filtredProduct() {
  })
 
 
+///partie2 :
+
+let carte = [];
+
+
+
+async function addProducts(){
+
+let somme = 0;
+  try {
+    const products = await getData();
+    console.log(products);
+    const addButton = productContainer.querySelectorAll("button");
+    console.log(addButton);
+    addButton.forEach((button)=> {
+       button.addEventListener('click', function (event) {
+        let buttonid = event.target.getAttribute("id");
+        console.log(buttonid);
+      products.forEach((element)=>{
+        if(buttonid == element.id) {
+          
+           if (element.stock <= 0) {
+          Swal.fire("Stock épuisé");
+          return;
+        }
+     let newCarte = carte.find((item)=> item.id == buttonid);
+        if (!newCarte) {
+          element.quantite = 1;
+          carte.push(element) 
+        
+        }else{
+            newCarte.quantite ++;
+        }
+         
+      } 
+    
+    })
+       
+           console.log(carte); 
+            })
+        
+     })
+    
+  } catch (error) {
+    console.log(error.massage);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
  
+
+
+
